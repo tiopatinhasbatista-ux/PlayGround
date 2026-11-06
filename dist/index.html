@@ -1,23 +1,87 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="pt-BR">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>PlayGround</title>
-<style>
-  :root { color-scheme: light dark; }
-  body { font-family: system-ui, -apple-system, sans-serif; margin: 0; min-height: 100vh; display: grid; place-items: center; background: #0f172a; color: #f8fafc; }
-  main { max-width: 640px; padding: 48px 24px; text-align: center; }
-  h1 { font-size: 2.5rem; margin: 0 0 12px; }
-  p { opacity: 0.85; line-height: 1.6; }
-  .badge { display: inline-block; padding: 6px 12px; border-radius: 999px; background: #22c55e22; border: 1px solid #22c55e55; font-size: 0.85rem; margin-bottom: 16px; }
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f8fc">
+  <title>Nuvem — demonstração local</title>
+  <style>
+    :root{font-family:Inter,Roboto,"Segoe UI",system-ui,sans-serif;color:#202124;background:#f6f8fc;font-synthesis:none}
+    *{box-sizing:border-box}body{margin:0;min-height:100vh}button,input{font:inherit}button{cursor:pointer}
+    .topbar{height:72px;display:flex;align-items:center;gap:22px;padding:0 24px;position:sticky;top:0;background:#f6f8fc;z-index:3}
+    .brand{display:flex;align-items:center;gap:10px;min-width:220px;font-size:21px;color:#444746;font-weight:600;letter-spacing:-.4px}.brand-icon{width:30px;height:30px;border-radius:9px;background:linear-gradient(145deg,#4285f4 0 48%,#34a853 49% 69%,#fbbc04 70% 84%,#ea4335 85%);display:grid;place-items:center;color:#fff;font-size:16px;font-weight:800;box-shadow:0 2px 6px #0002}
+    .search{height:48px;max-width:720px;flex:1;background:#eaf1fb;border-radius:14px;display:flex;align-items:center;gap:12px;padding:0 18px}.search input{border:0;outline:0;background:transparent;width:100%;font-size:15px;color:#202124}.search:focus-within{background:white;box-shadow:0 1px 5px #0003}.top-actions{margin-left:auto;display:flex;align-items:center;gap:12px}.avatar{height:34px;width:34px;border-radius:50%;display:grid;place-items:center;background:#d3e3fd;color:#174ea6;font-size:14px;font-weight:700}
+    .layout{display:grid;grid-template-columns:240px minmax(0,1fr);gap:20px;max-width:1600px;margin:auto;padding:8px 24px 32px}.sidebar{padding:0 8px}.new-btn{height:54px;padding:0 20px;border:0;border-radius:16px;background:#c2e7ff;color:#001d35;box-shadow:0 2px 5px #0002;font-weight:600;display:flex;align-items:center;gap:12px;margin:6px 0 20px}.new-btn:hover{box-shadow:0 3px 8px #0003}.nav{display:grid;gap:4px}.nav button{height:42px;text-align:left;border:0;border-radius:0 22px 22px 0;background:transparent;padding:0 18px;color:#444746;font-weight:500;display:flex;align-items:center;gap:14px}.nav button.active{background:#d3e3fd;color:#041e49;font-weight:650}.nav button:hover{background:#e8eaed}.nav .icon{width:20px;text-align:center;font-size:17px}.storage{margin:28px 14px;color:#5f6368;font-size:12px}.meter{height:4px;border-radius:4px;background:#dadce0;margin:10px 0}.meter i{display:block;width:35%;height:100%;background:#4285f4;border-radius:4px}.storage button{border:1px solid #747775;border-radius:18px;background:transparent;color:#0b57d0;padding:7px 15px;margin-top:8px;font-size:12px}
+    main{background:#fff;border-radius:24px;min-height:calc(100vh - 100px);padding:28px 32px;overflow:hidden}.notice{display:flex;gap:12px;align-items:flex-start;background:#fff8e1;border:1px solid #f4d98c;padding:12px 15px;border-radius:12px;color:#5c4500;font-size:13px;line-height:1.45;margin-bottom:24px}.notice strong{display:block;margin-bottom:2px}.heading-row{display:flex;align-items:center;gap:12px;margin:2px 0 18px}.heading-row h1{font-size:24px;letter-spacing:-.4px;font-weight:450;margin:0}.heading-row .count{color:#5f6368;font-size:13px}.spacer{flex:1}.view-btn{border:0;background:transparent;border-radius:8px;padding:8px;color:#5f6368}.view-btn:hover{background:#f1f3f4}.section-label{font-size:13px;font-weight:600;margin:24px 0 12px;color:#444746}.chips{display:flex;gap:10px;flex-wrap:wrap}.chip{height:42px;min-width:180px;border:1px solid #dadce0;border-radius:9px;background:#fff;padding:0 12px;display:flex;align-items:center;gap:10px;text-align:left;color:#3c4043}.chip:hover,.file-card:hover{background:#f8fafd;border-color:#c5d7f5}.chip span:last-child{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.file-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(205px,1fr));gap:14px}.file-card{position:relative;text-align:left;border:1px solid #dadce0;border-radius:12px;padding:0;background:#fff;overflow:hidden;min-width:0;color:#3c4043}.preview{height:128px;background:#f1f3f4;display:grid;place-items:center;font-size:48px}.preview.blue{background:#e8f0fe}.preview.green{background:#e6f4ea}.preview.yellow{background:#fef7e0}.preview.pink{background:#fce8e6}.file-meta{padding:12px}.file-name{font-size:14px;font-weight:550;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.file-sub{font-size:12px;color:#70757a;margin-top:5px}.file-icon{font-size:18px}.empty{padding:40px 12px;text-align:center;color:#5f6368}.empty .big{font-size:42px;margin-bottom:12px}
+    .toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,20px);background:#303134;color:white;border-radius:8px;padding:12px 18px;font-size:14px;opacity:0;transition:.2s;pointer-events:none;z-index:10}.toast.show{opacity:1;transform:translate(-50%,0)}.modal-backdrop{position:fixed;inset:0;background:#0005;z-index:8;display:none;place-items:center;padding:20px}.modal-backdrop.open{display:grid}.modal{background:#fff;width:min(420px,100%);border-radius:20px;padding:24px;box-shadow:0 8px 30px #0003}.modal h2{font-size:20px;font-weight:500;margin:0 0 18px}.modal input{width:100%;padding:12px;border:1px solid #dadce0;border-radius:7px;outline-color:#4285f4}.modal-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:20px}.modal-actions button{border:0;border-radius:18px;padding:9px 18px;background:transparent;color:#0b57d0;font-weight:600}.modal-actions .primary{background:#0b57d0;color:#fff}
+    @media(max-width:760px){.topbar{height:62px;padding:0 14px;gap:12px}.brand{min-width:auto;font-size:0}.brand-icon{flex:none}.layout{grid-template-columns:1fr;padding:5px 12px 20px}.sidebar{padding:0;overflow:auto}.new-btn{height:44px;margin:4px 0 10px}.nav{display:flex;overflow:auto}.nav button{white-space:nowrap;border-radius:22px;padding:0 14px}.storage{display:none}main{padding:22px 17px;border-radius:18px}.notice{font-size:12px}.chips{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.chip{min-width:0}.file-grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}.preview{height:105px}}
+  </style>
 </head>
 <body>
-<main>
-<div class="badge">PlayGround is running</div>
-<h1>PlayGround</h1>
-<p>This is a benign placeholder static site. Local preview and screenshots validate startup and capture.</p>
-</main>
+  <header class="topbar">
+    <div class="brand"><div class="brand-icon">N</div>Nuvem <span style="font-size:12px;font-weight:400;color:#777">demo</span></div>
+    <label class="search"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="Pesquisar nesta demonstração" aria-label="Pesquisar arquivos"></label>
+    <div class="top-actions"><button class="view-btn" aria-label="Ajuda" title="Ajuda">?</button><div class="avatar" title="Perfil fictício">D</div></div>
+  </header>
+  <div class="layout">
+    <aside class="sidebar">
+      <button class="new-btn" id="newButton"><span style="font-size:22px">＋</span> Novo</button>
+      <nav class="nav" aria-label="Navegação">
+        <button class="active" data-filter="all"><span class="icon">⌂</span>Início</button>
+        <button data-filter="recent"><span class="icon">◷</span>Recentes</button>
+        <button data-filter="starred"><span class="icon">☆</span>Com estrela</button>
+        <button data-filter="trash"><span class="icon">▤</span>Lixeira</button>
+      </nav>
+      <div class="storage">Armazenamento de demonstração<div class="meter"><i></i></div>3,5 GB de 10 GB usados<button id="storageInfo">Ver detalhes</button></div>
+    </aside>
+    <main>
+      <div class="notice"><span aria-hidden="true">ⓘ</span><div><strong>Demonstração local — não é um serviço de nuvem.</strong>Os itens abaixo são fictícios e ficam apenas nesta página. Nenhum IP, localização, dispositivo, câmera ou arquivo é coletado ou enviado.</div></div>
+      <div class="heading-row"><h1 id="pageTitle">Início</h1><span class="count" id="count"></span><span class="spacer"></span><button class="view-btn" id="sortButton" title="Ordenar">↕ Ordenar</button></div>
+      <div id="content"></div>
+    </main>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <div class="modal-backdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <form class="modal" id="folderForm"><h2 id="modalTitle">Criar pasta de demonstração</h2><input id="folderName" maxlength="48" placeholder="Nome da pasta" autocomplete="off" required><div class="modal-actions"><button type="button" id="cancelModal">Cancelar</button><button class="primary" type="submit">Criar</button></div></form>
+  </div>
+  <script>
+    const seed = [
+      {name:'Planejamento 2026',type:'folder',date:'Hoje',icon:'📁'},
+      {name:'Fotos de viagem',type:'folder',date:'Ontem',icon:'📁'},
+      {name:'Receitas favoritas',type:'folder',date:'12 de mai.',icon:'📁'},
+      {name:'Apresentação do projeto',type:'slides',date:'Hoje',icon:'📊',color:'yellow',starred:true},
+      {name:'Anotações da reunião',type:'doc',date:'Ontem',icon:'📄',color:'blue'},
+      {name:'Paisagem de exemplo.jpg',type:'image',date:'10 de mai.',icon:'🏞️',color:'green'},
+      {name:'Orçamento fictício.xlsx',type:'sheet',date:'8 de mai.',icon:'📈',color:'green',starred:true},
+      {name:'Guia de boas-vindas.pdf',type:'pdf',date:'2 de mai.',icon:'📕',color:'pink'}
+    ];
+    let items = seed.map(x=>({...x})), filter='all', ascending=true;
+    const content=document.getElementById('content'), title=document.getElementById('pageTitle'), count=document.getElementById('count'), toast=document.getElementById('toast');
+    function notify(message){toast.textContent=message;toast.classList.add('show');clearTimeout(notify.timer);notify.timer=setTimeout(()=>toast.classList.remove('show'),2400)}
+    function render(){
+      const query=document.getElementById('search').value.trim().toLowerCase();
+      const labels={all:'Início',recent:'Recentes',starred:'Com estrela',trash:'Lixeira'};title.textContent=labels[filter];
+      let visible=items.filter(x=>filter==='starred'?x.starred:filter==='trash'?x.deleted:filter==='recent'?x.type!=='folder'&&!x.deleted:!x.deleted);
+      if(query) visible=visible.filter(x=>x.name.toLowerCase().includes(query));
+      visible.sort((a,b)=>a.name.localeCompare(b.name,'pt-BR')*(ascending?1:-1));count.textContent=visible.length?`${visible.length} itens`:'';
+      if(!visible.length){content.innerHTML=`<div class="empty"><div class="big">${query?'⌕':'📂'}</div>${query?'Nenhum item encontrado.':'Nada para mostrar aqui.'}</div>`;return}
+      const folders=visible.filter(x=>x.type==='folder'), files=visible.filter(x=>x.type!=='folder');
+      let html='';if(folders.length)html+=`<div class="section-label">Pastas</div><div class="chips">${folders.map(x=>`<button class="chip" data-name="${escapeHtml(x.name)}"><span class="file-icon">${x.icon}</span><span>${escapeHtml(x.name)}</span></button>`).join('')}</div>`;
+      if(files.length)html+=`<div class="section-label">Arquivos</div><div class="file-grid">${files.map(x=>`<button class="file-card" data-name="${escapeHtml(x.name)}"><div class="preview ${x.color||''}">${x.icon}</div><div class="file-meta"><div class="file-name">${x.starred?'★ ':''}${escapeHtml(x.name)}</div><div class="file-sub">Modificado: ${x.date} · ${x.type==='doc'?'Documento':x.type==='image'?'Imagem':x.type==='sheet'?'Planilha':x.type==='slides'?'Apresentação':'PDF'}</div></div></button>`).join('')}</div>`;
+      content.innerHTML=html;
+      content.querySelectorAll('[data-name]').forEach(el=>el.addEventListener('click',()=>notify(`“${el.dataset.name}” é um item fictício desta demonstração.`)));
+    }
+    function escapeHtml(s){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+    document.querySelectorAll('.nav button').forEach(button=>button.addEventListener('click',()=>{document.querySelector('.nav .active')?.classList.remove('active');button.classList.add('active');filter=button.dataset.filter;render()}));
+    document.getElementById('search').addEventListener('input',render);
+    document.getElementById('sortButton').addEventListener('click',()=>{ascending=!ascending;render()});
+    const backdrop=document.getElementById('modalBackdrop'), nameInput=document.getElementById('folderName');
+    document.getElementById('newButton').addEventListener('click',()=>{backdrop.classList.add('open');nameInput.value='';nameInput.focus()});
+    document.getElementById('cancelModal').addEventListener('click',()=>backdrop.classList.remove('open'));
+    backdrop.addEventListener('click',e=>{if(e.target===backdrop)backdrop.classList.remove('open')});
+    document.getElementById('folderForm').addEventListener('submit',e=>{e.preventDefault();const name=nameInput.value.trim();if(!name)return;items.unshift({name,type:'folder',date:'Agora',icon:'📁'});backdrop.classList.remove('open');filter='all';document.querySelector('.nav .active')?.classList.remove('active');document.querySelector('[data-filter="all"]').classList.add('active');render();notify(`Pasta “${name}” criada nesta página.`)});
+    document.getElementById('storageInfo').addEventListener('click',()=>notify('O indicador de armazenamento é ilustrativo; nenhum arquivo é armazenado.'));
+    render();
+  </script>
 </body>
 </html>
